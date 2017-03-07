@@ -9,39 +9,38 @@ const knex = require('knex')(config);
 // eslint-disable-next-line new-cap
 const router = express.Router();
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
-
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // YOUR CODE HERE
-router.get('/books', function(req, res){
-  knex('books').then(function(books){
+router.get('/books', (req, res) => {
+  knex('books').then((books) => {
     res.status(200).json(books);
   })
   .catch((err) => {
-      console.error(err);
-      knex.destroy();
-      process.exit(1);
-    });
-
+    console.error(err);
+    knex.destroy();
+    process.exit(1);
+  });
 });
 
-router.get('/books/:id', function(req, res){
+router.get('/books/:id', (req, res) => {
   const bookId = parseInt(req.params.id);
+
   knex('books')
   .where('id', bookId)
-  .then(function (books){
+  .then((books) => {
     res.status(200).json(books);
   })
   .catch((err) => {
-      console.error(err);
-      knex.destroy();
-      process.exit(1);
-    });
-})
+    console.error(err);
+    knex.destroy();
+    process.exit(1);
+  });
+});
 
-router.post('/books', function(req, res){
+router.post('/books', (req, res) => {
   knex('books')
     .insert({
       "title": req.body.title,
@@ -63,8 +62,8 @@ router.post('/books', function(req, res){
       console.error(err);
       knex.destroy();
       process.exit(1);
-    })
-})
+    });
+});
 
 router.patch('/books/:id', (req, res) => {
   const bookId = parseInt(req.params.id);
@@ -88,17 +87,15 @@ router.delete('/books/:id', (req, res) => {
 
   knex('books')
   .where('id', bookId)
-  .then(function (books){
-    res.status(200).json(books)
-  })
+  .then((books) => {
+    res.status(200).json(books);
+  });
   knex('books')
   .where('id', bookId)
   .del()
-  .then(function() {
-    res.end
-  })
-
-})
-
+  .then(() => {
+    res.end;
+  });
+});
 
 module.exports = router;
