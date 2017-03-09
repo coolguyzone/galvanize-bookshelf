@@ -40,8 +40,8 @@ suite('part3 routes', () => {
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .send({
-        firstName: 'John',
-        lastName: 'Siracusa',
+        first_name: 'John',
+        last_name: 'Siracusa',
         email: 'john.siracusa@gmail.com',
         password
       })
@@ -51,8 +51,8 @@ suite('part3 routes', () => {
       })
       .expect(200, {
         id: 2,
-        firstName: 'John',
-        lastName: 'Siracusa',
+        first_name: 'John',
+        last_name: 'Siracusa',
         email: 'john.siracusa@gmail.com'
       })
       .expect('Content-Type', /json/)

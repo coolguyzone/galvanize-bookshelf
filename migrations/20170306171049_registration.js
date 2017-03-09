@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     table.string('email').notNullable().unique();
       table.specificType('hashed_password', 'char(60)').notNullable();
     table.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'));
-    table.timestamp('updated_at').defaultTo(knex.raw('now()'));
+    table.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'));
   });
 };
 
