@@ -38,7 +38,6 @@ router.post('/token', (req, res) => {
       let password = user.hashed_password;
       bcrypt.compare(req.body.password, password)
         .then((arg) => {
-          console.log('fuck this shit');
           const claim = { userId: user.id};
           const token = jwt.sign(claim, process.env.JWT_KEY, {
             expiresIn: '7 days'
