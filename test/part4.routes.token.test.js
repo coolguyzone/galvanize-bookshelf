@@ -52,8 +52,8 @@ suite('part4 routes token', () => {
       })
       .expect(200, {
         id: 1,
-        firstName: 'Joanne',
-        lastName: 'Rowling',
+        first_name: 'Joanne',
+        last_name: 'Rowling',
         email: 'jkrowling@gmail.com'
       })
       .expect('Content-Type', /json/)
