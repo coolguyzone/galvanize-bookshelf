@@ -10,12 +10,14 @@ const knex = require('../knex.js');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-as-promised');
+const ev = require('express-validation');
+const validations = require('../validations/books');
 
 //bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.post('/users',  (req, res) => {
+router.post('/users', ev(validations.post), (req, res) => {
   bcrypt.hash(req.body.password, 12)
   .then((hashed) => {
       const newUser = {

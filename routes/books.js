@@ -10,6 +10,8 @@ const knex = require('../knex.js');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 const bodyParser = require('body-parser');
+const ev = require('express-validation');
+const validations = require('../validations/books');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +44,7 @@ router.get('/books/:id', (req, res) => {
   });
 });
 
-router.post('/books', (req, res) => {
+router.post('/books', ev(validations.post), (req, res) => {
   knex('books')
     .insert({
       title: req.body.title,
