@@ -13,6 +13,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
+const ev = require('express-validation');
+
 switch (app.get('env')) {
   case 'development':
     app.use(morgan('dev'));
@@ -57,6 +59,9 @@ app.use((_req, res) => {
 
 // eslint-disable-next-line max-params
 app.use((err, _req, res, _next) => {
+  if (err instanceof ev.ValidationError) {
+    return res.status(err.status).send(err);
+  }
   if (err.output && err.output.statusCode) {
     return res
       .status(err.output.statusCode)
