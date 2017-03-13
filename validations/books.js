@@ -5,30 +5,26 @@ const Joi = require('joi');
 module.exports.post = {
   body: {
     title: Joi.string()
-      .alphanum()
       .min(3)
       .max(30)
       .required(),
 
     author: Joi.string()
-      .alphanum()
       .min(3)
       .max(30)
       .required(),
 
     genre: Joi.string()
-      .alphanum()
       .min(3)
       .max(20),
 
     description: Joi.string()
-    .alphanum()
     .min(10)
-    .max(100),
+    .max(10000),
 
     cover_url: Joi.string()
       .min(3)
-      .max(40)
+      .max(400)
       .required()
   }
 };
