@@ -11,7 +11,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-as-promised');
 const ev = require('express-validation');
-const validations = require('../validations/books');
+const validations = require('../validations/users');
 
 //bodyparser
 app.use(bodyParser.json());
@@ -30,17 +30,17 @@ router.post('/users', ev(validations.post), (req, res) => {
     })
     .then((users) => {
       const user = users[0];
+
         delete user.hashed_password;
         delete user.created_at;
         delete user.updated_at;
         res.send(user);
-
     })
     .catch((err) => {
       console.log(err);
       res.end();
     });
-})
+});
 
 // YOUR CODE HERE
 

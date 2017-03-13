@@ -24,6 +24,6 @@ module.exports.post = {
     password: Joi.string()
       .required()
       .trim()
-      .min(8)
+      .min(6)
   }
 };

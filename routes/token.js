@@ -6,6 +6,8 @@ const knex = require('../knex.js');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
+const ev = require('express-validation');
+const validations = require('../validations/token')
 
 // eslint-disable-next-line new-cap
 
@@ -26,7 +28,7 @@ router.get('/token', (req, res) => {
 
 });
 
-router.post('/token', (req, res) => {
+router.post('/token', ev(validations.post), (req, res) => {
   knex('users')
     .where('email', req.body.email)
     .first()

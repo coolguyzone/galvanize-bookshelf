@@ -7,12 +7,14 @@ module.exports.post = {
     title: Joi.string()
       .alphanum()
       .min(3)
-      .max(30),
+      .max(30)
+      .required(),
 
     author: Joi.string()
       .alphanum()
       .min(3)
-      .max(30),
+      .max(30)
+      .required(),
 
     genre: Joi.string()
       .alphanum()
@@ -27,5 +29,6 @@ module.exports.post = {
     cover_url: Joi.string()
       .min(3)
       .max(40)
+      .required()
   }
 };
