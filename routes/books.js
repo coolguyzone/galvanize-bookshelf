@@ -2,9 +2,6 @@
 
 const express = require('express');
 const app = express();
-// const env = process.env.node_env || 'test';
-// const config = require('../knexfile.js')[env];
-// const knex = require('knex')(config);
 const knex = require('../knex.js');
 
 // eslint-disable-next-line new-cap
@@ -54,7 +51,7 @@ router.post('/books', ev(validations.post), (req, res) => {
       cover_url: req.body.cover_url
     }, '*')
     .then((items) => {
-      res.send(items[0])
+      res.send(items[0]);
     })
     .catch((err) => {
       console.error(err);

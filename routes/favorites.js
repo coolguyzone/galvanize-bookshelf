@@ -15,13 +15,13 @@ const router = express.Router();
 router.get('/favorites/check', (req, res) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
-     res.set('Content-Type', 'text/plain');
-     res.status(401).send('Unauthorized');
+      res.set('Content-Type', 'text/plain');
+      res.status(401).send('Unauthorized');
     }
-   else {
-     knex('favorites')
-       .then((favorites) =>{
-         for (var i = 0; i < favorites.length; i++) {
+    else {
+      knex('favorites')
+       .then((favorites) => {
+         for (let i = 0; i < favorites.length; i++) {
            if (favorites[i].id.toString() === req.query.bookId) {
              res.set('Content-Type', 'match/json');
              res.status(200).send('true');
@@ -30,14 +30,14 @@ router.get('/favorites/check', (req, res) => {
              res.status(200).send('false');
            }
          }
-     })
-     .catch(() =>{
+       })
+     .catch(() => {
        res.set('Content-Type', 'match/plain');
        res.status(401);
-     })
- }
- })
-})
+     });
+    }
+  });
+});
 
 router.get('/favorites', (req, res) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
@@ -70,17 +70,18 @@ router.post('/favorites', ev(validations.post), (req, res) => {
           book_id: req.body.bookId,
           user_id: payload.userId
         }, '*')
-        .then ((favorites) => {
+        .then((favorites) => {
           let favorite = favorites[0];
+
           delete favorite.created_at;
           delete favorite.updated_at;
           res.status(200).send(humps.camelizeKeys(favorite));
-        })
+        });
     }
-  })
-})
+  });
+});
 
-router.delete('/favorites', (req, res) =>{
+router.delete('/favorites', (req, res) => {
   jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
     if (err) {
       res.set('Content-Type', 'text/plain');
@@ -92,7 +93,7 @@ router.delete('/favorites', (req, res) =>{
       knex('favorites')
         .where('book_id', req.body.bookId)
         .first()
-        .then((row) =>{
+        .then((row) => {
           if (!row) {
             return next();
           }
@@ -108,11 +109,9 @@ router.delete('/favorites', (req, res) =>{
           delete favorite.updated_at;
           delete favorite.id;
           res.status(200).send(humps.camelizeKeys(favorite));
-        })
-
-
+        });
     }
-  })
-})
+  });
+});
 
 module.exports = router;
